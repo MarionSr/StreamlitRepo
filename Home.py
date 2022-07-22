@@ -60,7 +60,7 @@ if csv_variable is not None:
 st.markdown(f"""
 <style>
 .stApp{{
-    background-image: url(https://images.unsplash.com/photo-1551986782-d0169b3f8fa7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVuZ3VpbnN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60);
+    background-image: url(https://images.unsplash.com/photo-1596544701302-2a61b8bbca35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80);
     background-size: cover;
 }}
 </style>
