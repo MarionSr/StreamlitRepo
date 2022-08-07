@@ -263,7 +263,7 @@ def main():
 
     ## Display a Intertopic Distance Map of topics using pyLDAvis
     prepared_model_data = gensimvis.prepare(lda_model, corpus, dictionary, mds='mmds')
-    pyLDAvis.save_html(prepared_model_data, 'pyLDAvis.html')
+    gensimvis.save_html(prepared_model_data, 'pyLDAvis.html')
 
     with open('./pyLDAvis.html', 'r') as f:
         html_string = f.read()
