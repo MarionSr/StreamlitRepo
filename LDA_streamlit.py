@@ -3,7 +3,6 @@
 #import warnings
 #warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-from turtle import down
 import streamlit as st
 from streamlit import components
 import pandas as pd
