@@ -34,8 +34,7 @@ from pprint import pprint
 
 ## Visualization
 import matplotlib.pyplot as plt
-import pyLDAvis.gensim_models
-#pyLDAvis.enable_notebook()
+import pyLDAvis.gensim
 
 ## Set global variables
 data_path = os.path.join(os.getcwd(),'data')
