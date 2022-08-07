@@ -1,5 +1,12 @@
 pandas
+numpy
 matplotlib
 streamlit
-seaborn
-plotly
+gensim
+nltk
+os
+re
+spacy
+pprint
+pyLDAvis.gensim_models
+
