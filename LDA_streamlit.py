@@ -13,8 +13,8 @@ import pickle
 
 # Text Preprocessing NLTK
 import nltk
-#nltk.download('stopwords')
-#nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('punkt')
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 stopwords = stopwords.words('spanish')
