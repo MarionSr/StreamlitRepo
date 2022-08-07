@@ -259,7 +259,7 @@ def main():
     df_topics_per_interview
     
     ## Get word-probability pair for a selected topic. Takes topic_id (int) and number of the most significant words that are associated with the topic (int).
-    lda_model.show_topic(17,10) 
+    pd.DataFrame(lda_model.show_topic(21,15)) 
 
     ## Display a Intertopic Distance Map of topics using pyLDAvis
     prepared_model_data = pyLDAvis.gensim_models.prepare(lda_model, corpus, dictionary, mds='mmds')
