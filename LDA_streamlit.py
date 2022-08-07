@@ -22,9 +22,11 @@ stopwords = stopwords.words('spanish')
 
 ## Text Preprocessing spaCy
 import spacy
-from spacy.cli import download
-download("es_core_news_md")
-nlp = spacy.load("es_core_news_md")
+nlp = spacy.load('es_core_news_md')
+except OSError:
+  from spacy.cli import download
+  download('es_core_news_md')
+  nlp = spacy.load('es_core_news_md')
 
 ## LDA-Model
 import gensim
