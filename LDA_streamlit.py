@@ -15,21 +15,13 @@ import pickle
 import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
-try:
-  stopwords = stopwords.words('spanish')
-except OSError:
-  nltk.download('stopwords')
-  nltk.download('punkt')
-  stopwords = stopwords.words('spanish')
+nltk.data.path.append('NLTK/stopwords')
+nltk.data.path.append('NLTK/punkt')
+stopwords = stopwords.words('spanish')
 
 ## Text Preprocessing spaCy
 import spacy
-try:
-    nlp = spacy.load('es_core_news_md')
-except OSError:
-    from spacy.cli import download
-    download('es_core_news_md')
-    nlp = spacy.load('es_core_news_md')
+nlp = spacy.load('SPACY/es_core_news_md')
 
 ## LDA-Model
 import gensim
@@ -205,7 +197,7 @@ def compute_coherence_values(dictionary, corpus, texts, limit, start, step):
     for num_topics in range(start, limit, step):
         f'Computing LDA with {num_topics} topics…'
         model = LdaModel(corpus=corpus, id2word=dictionary, chunksize=500, \
-         alpha='auto', eta='auto', \
+         alpha='auto', eta='auto', random_state=42, \
          iterations=400, num_topics=num_topics, \
          passes=20, eval_every=1)
         model_list.append(model)
@@ -251,7 +243,7 @@ def main():
     dictionary, corpus = create_dict_corpus(preprocessed_data)
 
     ## Train LDA-Model
-    num_topics = 68
+    num_topics = 92
     chunksize = 500  # size of the doc looked at every pass
     passes = 20 # number of passes through documents
     iterations = 400
@@ -271,8 +263,8 @@ def main():
     lda_model.show_topic(17,10) 
 
     ## Display a Intertopic Distance Map of topics using pyLDAvis
-    #prepared_model_data = pyLDAvis.gensim_models.prepare(lda_model, corpus, dictionary, mds='mmds')
-    #pyLDAvis.save_html(prepared_model_data, 'pyLDAvis.html')
+    prepared_model_data = pyLDAvis.gensim_models.prepare(lda_model, corpus, dictionary, mds='mmds')
+    pyLDAvis.save_html(prepared_model_data, 'pyLDAvis.html')
 
     with open('./pyLDAvis.html', 'r') as f:
         html_string = f.read()
@@ -284,6 +276,6 @@ def main():
     f'Coherence Score: {coherence_lda}'   
 
     ## Compute and display coherence scores for given number of topics
-    model_list, coherence_values = compute_coherence_values(dictionary=dictionary, corpus=corpus, texts=preprocessed_data, start=20, limit=29, step=4)
+    model_list, coherence_values = compute_coherence_values(dictionary=dictionary, corpus=corpus, texts=preprocessed_data, start=20, limit=101, step=8)
 
 main()
