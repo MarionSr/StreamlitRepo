@@ -34,7 +34,7 @@ from pprint import pprint
 
 ## Visualization
 import matplotlib.pyplot as plt
-import pyLDAvis.gensim_models as gensimvis
+import pyLDAvis.gensim_models
 
 ## Set global variables
 data_path = os.path.join(os.getcwd(),'data')
@@ -262,8 +262,8 @@ def main():
     lda_model.show_topic(17,10) 
 
     ## Display a Intertopic Distance Map of topics using pyLDAvis
-    prepared_model_data = gensimvis.prepare(lda_model, corpus, dictionary, mds='mmds')
-    gensimvis.save_html(prepared_model_data, 'pyLDAvis.html')
+    prepared_model_data = import pyLDAvis.gensim_models.prepare(lda_model, corpus, dictionary, mds='mmds')
+    pyLDAvis.save_html(prepared_model_data, 'pyLDAvis.html')
 
     with open('./pyLDAvis.html', 'r') as f:
         html_string = f.read()
