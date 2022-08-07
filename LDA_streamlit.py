@@ -14,19 +14,23 @@ import pickle
 
 # Text Preprocessing NLTK
 import nltk
-nltk.download('stopwords')
-nltk.download('punkt')
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
-stopwords = stopwords.words('spanish')
+try:
+  stopwords = stopwords.words('spanish')
+except OSError:
+  nltk.download('stopwords')
+  nltk.download('punkt')
+  stopwords = stopwords.words('spanish')
 
 ## Text Preprocessing spaCy
 import spacy
-nlp = spacy.load('es_core_news_md')
+try:
+    nlp = spacy.load('es_core_news_md')
 except OSError:
-  from spacy.cli import download
-  download('es_core_news_md')
-  nlp = spacy.load('es_core_news_md')
+    from spacy.cli import download
+    download('es_core_news_md')
+    nlp = spacy.load('es_core_news_md')
 
 ## LDA-Model
 import gensim
