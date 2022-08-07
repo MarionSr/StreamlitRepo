@@ -262,7 +262,7 @@ def main():
     lda_model.show_topic(17,10) 
 
     ## Display a Intertopic Distance Map of topics using pyLDAvis
-    prepared_model_data = import pyLDAvis.gensim_models.prepare(lda_model, corpus, dictionary, mds='mmds')
+    prepared_model_data = pyLDAvis.gensim_models.prepare(lda_model, corpus, dictionary, mds='mmds')
     pyLDAvis.save_html(prepared_model_data, 'pyLDAvis.html')
 
     with open('./pyLDAvis.html', 'r') as f:
