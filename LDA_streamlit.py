@@ -3,6 +3,7 @@
 #import warnings
 #warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+from turtle import down
 import streamlit as st
 from streamlit import components
 import pandas as pd
@@ -21,6 +22,8 @@ stopwords = stopwords.words('spanish')
 
 ## Text Preprocessing spaCy
 import spacy
+from spacy.cli import download
+download("es_core_news_md")
 nlp = spacy.load("es_core_news_md")
 
 ## LDA-Model
