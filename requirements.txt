@@ -6,4 +6,5 @@ gensim
 nltk
 spacy
 pyLDAvis
+altair
 
