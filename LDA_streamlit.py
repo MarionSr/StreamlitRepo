@@ -259,7 +259,7 @@ def main():
     dictionary, corpus = create_dict_corpus(preprocessed_data)
 
     ## Train LDA-Model
-    num_topics = 98
+    num_topics = 112
     chunksize = 500  # size of the doc looked at every pass
     passes = 20 # number of passes through documents
     iterations = 400
