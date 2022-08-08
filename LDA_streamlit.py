@@ -3,13 +3,15 @@
 #import warnings
 #warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-import streamlit as st
-from streamlit import components
 import pandas as pd
 import numpy as np
 import os
 import re
-import pickle
+
+## Streamlit
+import streamlit as st
+from streamlit import components
+import altair as alt
 
 # Text Preprocessing NLTK
 import nltk
@@ -123,7 +125,7 @@ def remove_cus_stopwords(data, filename):
     with open(os.path.join(data_path,filename), 'r') as my_file:
         list_cus_stopwords = my_file.readlines()
         list_cus_stopwords = [word.strip() for word in list_cus_stopwords]
-        print(list_cus_stopwords)
+        st.text(', '.join(list_cus_stopwords))
         data_no_stopwords = []
         for list_token in data:
             data_no_stopwords.append([token for token in list_token if token not in list_cus_stopwords])
@@ -205,9 +207,34 @@ def compute_coherence_values(dictionary, corpus, texts, limit, start, step):
 
     number_topics = [*range(start,limit,step)]
     chart_data = pd.DataFrame({'coherence values': coherence_values}, index=number_topics)
-    plt.xlabel("Number of Topics")
-    plt.ylabel("Coherence score")
-    st.line_chart(chart_data)
+    #plt.xlabel("Number of Topics")
+    #plt.ylabel("Coherence score")
+    #st.line_chart(chart_data)
+    
+
+    #chart = (
+    #    alt.Chart(
+    #        data=chart_data,
+    #        title="Coherence Score for n number of topics"
+    #    )
+    #    .mark_line()
+    #    .encode(
+    #        x=alt.X('number_topics', axis=alt.Axis(title="Number of Topics")),
+    #        y=alt.X('coherence values', axis=alt.Axis(title="Coherence score"))
+    #    )
+    #)
+    chart= (
+        alt.Chart(
+            data= chart_data.reset_index(),
+            title="Coherence Score for n number of topics"
+            )
+        .mark_line()
+        .encode(
+            x=alt.X('index', axis=alt.Axis(title="Number of Topics")),
+            y=alt.X('coherence values', axis=alt.Axis(title="Coherence score"), scale=alt.Scale(zero=False))
+        )
+    )
+    st.altair_chart(chart)
     return model_list, coherence_values
 
 def main():
@@ -256,11 +283,11 @@ def main():
 
     ## Create table to get keywords per topic related to section per interview.
     df_topics_per_interview = format_topics_sentences(ldamodel=lda_model, corpus=corpus, list_of_ids=list_ids)
-    df_topics_per_interview
+    st.dataframe(df_topics_per_interview)
     
     ## Get word-probability pair for a selected topic. Takes topic_id (int) and number of the most significant words that are associated with the topic (int).
     df_words_per_topic = pd.DataFrame(lda_model.show_topic(21,15)) 
-    df_words_per_topic
+    st.table(df_words_per_topic)
 
     ## Display a Intertopic Distance Map of topics using pyLDAvis
     prepared_model_data = pyLDAvis.gensim_models.prepare(lda_model, corpus, dictionary, mds='mmds')
@@ -276,6 +303,6 @@ def main():
     f'Coherence Score: {coherence_lda}'   
 
     ## Compute and display coherence scores for given number of topics
-    model_list, coherence_values = compute_coherence_values(dictionary=dictionary, corpus=corpus, texts=preprocessed_data, start=20, limit=101, step=8)
+    model_list, coherence_values = compute_coherence_values(dictionary=dictionary, corpus=corpus, texts=preprocessed_data, start=20, limit=61, step=8)
 
 main()
