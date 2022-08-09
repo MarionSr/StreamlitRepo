@@ -275,9 +275,9 @@ def main():
     df_topics_per_interview = format_topics_sentences(ldamodel=lda_model, corpus=corpus, list_of_ids=list_ids)
     st.dataframe(df_topics_per_interview)
     
-    st.subheader("Most significant words for topic 21")
+    st.subheader("Most significant words for topic 2")
     ## Get word-probability pair for a selected topic. Takes topic_id (int) and number of the most significant words that are associated with the topic (int).
-    df_words_per_topic = pd.DataFrame(lda_model.show_topic(21,15)) 
+    df_words_per_topic = pd.DataFrame(lda_model.show_topic(2,15)) 
     st.table(df_words_per_topic)
 
     st.subheader("Intertopic Distance Map")
